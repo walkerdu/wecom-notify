@@ -23,7 +23,7 @@ func (t *TextMessageHandler) HandleMessage(msg wecom.MessageIF) (wecom.MessageIF
 	//textMsg := msg.(*wecom.TextMessageReq)
 
 	textMsgRsp := wecom.TextMessageRsp{
-		Content: "",
+		Content: "臣妾来了，有何吩咐!",
 	}
 
 	return &textMsgRsp, nil
