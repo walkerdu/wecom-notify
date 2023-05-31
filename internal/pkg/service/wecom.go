@@ -14,7 +14,7 @@ import (
 
 type WeComServer struct {
 	httpSvr *http.Server
-	wx      *wecom.WeCom
+	wc      *wecom.WeCom
 }
 
 func NewWeComServer(config *configs.WeComConfig) (*WeComServer, error) {
@@ -23,10 +23,10 @@ func NewWeComServer(config *configs.WeComConfig) (*WeComServer, error) {
 	svr := &WeComServer{}
 
 	// 初始化企业微信API
-	svr.wx = wecom.NewWeCom(&config.AgentConfig)
+	svr.wc = wecom.NewWeCom(&config.AgentConfig)
 
 	mux := http.NewServeMux()
-	mux.Handle("/wecom", svr.wx)
+	mux.Handle("/wecom", svr.wc)
 	mux.HandleFunc("/wecom-notify", notify_handler.HandlerInst().ServeHTTP)
 
 	svr.httpSvr = &http.Server{
@@ -36,7 +36,7 @@ func NewWeComServer(config *configs.WeComConfig) (*WeComServer, error) {
 
 	svr.InitHandler()
 
-	notify_handler.HandlerInst().RegisterPusher(svr.wx.TextMessagePusher)
+	notify_handler.HandlerInst().RegisterPusher(svr.wc.PushMarkdowntMessage)
 
 	return svr, nil
 }
@@ -44,7 +44,7 @@ func NewWeComServer(config *configs.WeComConfig) (*WeComServer, error) {
 // 注册企业微信消息处理的业务逻辑Handler
 func (svr *WeComServer) InitHandler() error {
 	for msgType, handler := range handler.HandlerInst().GetLogicHandlerMap() {
-		svr.wx.RegisterLogicMsgHandler(msgType, handler.HandleMessage)
+		svr.wc.RegisterLogicMsgHandler(msgType, handler.HandleMessage)
 	}
 
 	return nil
