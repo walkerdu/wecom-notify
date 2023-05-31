@@ -1,6 +1,9 @@
 package notify_handler
 
 import (
+	"log"
+	"net/http"
+
 	"github.com/walkerdu/wecom-notify/pkg/message"
 )
 
@@ -21,6 +24,14 @@ func (t *MDBlogMessageHandler) HandleMessage(msg message.MessageReq) (message.Me
 	textMsgRsp := message.MessageRsp{
 		RetCode: 200,
 		RetMsg:  "success",
+	}
+
+	userID := "walkerdu"
+	pusher := HandlerInst().GetPusher()
+	if err := pusher(userID, msg.Content); err != nil {
+		log.Printf("[ERROR]HandleMessage|push to user=%s failed, err=%s", userID, err)
+		textMsgRsp.RetCode = http.StatusInternalServerError
+		textMsgRsp.RetMsg = err.Error()
 	}
 
 	return textMsgRsp, nil

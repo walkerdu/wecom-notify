@@ -8,6 +8,11 @@
             "agent_encoding_aes_key": "your_agent_encoding_aes_key"
         },
         "addr": "listten_addr"
+    },
+    "notify_config" : {
+        "md_blog":  {
+            "user_id" : "walkerdu"
+        }
     }
 }
 
