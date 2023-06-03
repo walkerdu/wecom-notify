@@ -36,7 +36,8 @@ func NewWeComServer(config *configs.WeComConfig) (*WeComServer, error) {
 
 	svr.InitHandler()
 
-	notify_handler.HandlerInst().RegisterPusher(svr.wc.PushMarkdowntMessage)
+	notify_handler.HandlerInst().RegisterPusher(svr.wc.PushFileMessage)
+	notify_handler.HandlerInst().RegisterUploader(svr.wc.UploadTemporaryMedia)
 
 	return svr, nil
 }

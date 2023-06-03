@@ -8,8 +8,9 @@ const (
 )
 
 type MessageReq struct {
-	MsgType MessageType `json:"msg_type"`
-	Content string      `json:"content"`
+	MsgType     MessageType `json:"msg_type"`
+	Content     string      `json:"content"`
+	ContentAttr string      `json:"content_attr"`
 }
 
 type MessageRsp struct {
