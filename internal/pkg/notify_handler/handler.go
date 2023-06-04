@@ -7,6 +7,7 @@ import (
 	"io/ioutil"
 	"log"
 	"net/http"
+	"strings"
 	"sync"
 
 	"github.com/walkerdu/wecom-backend/pkg/wecom"
@@ -103,7 +104,9 @@ func (h *Handler) ServeHTTP(wr http.ResponseWriter, req *http.Request) {
 				http.Error(wr, err.Error(), http.StatusBadRequest)
 				return
 			}
-		} else if contentType == "multipart/form-data" {
+		} else if strings.HasPrefix(contentType, "multipart/form-data") {
+			//contentType := "multipart/form-data; boundary=------------------------abcdefg1234567"
+
 			// 2.http请求体body的content为form表单数据
 
 			// 解析 multipart/form-data 请求体
