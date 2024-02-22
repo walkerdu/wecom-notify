@@ -1,6 +1,7 @@
 package configs
 
 import (
+	"github.com/walkerdu/wecom-backend/pkg/chatbot"
 	"github.com/walkerdu/wecom-backend/pkg/wecom"
 )
 
@@ -17,5 +18,6 @@ type WeComConfig struct {
 }
 
 type Config struct {
-	WeCom WeComConfig `json:"we_com"`
+	WeCom  WeComConfig          `json:"we_com"`
+	OpenAI chatbot.OpenAIConfig `json:"open_ai"`
 }

@@ -6,6 +6,7 @@ import (
 	"net/http"
 	"time"
 
+	"github.com/walkerdu/wecom-backend/pkg/chatbot"
 	"github.com/walkerdu/wecom-backend/pkg/wecom"
 	"github.com/walkerdu/wecom-notify/configs"
 	"github.com/walkerdu/wecom-notify/internal/pkg/handler"
@@ -35,6 +36,9 @@ func NewWeComServer(config *configs.WeComConfig) (*WeComServer, error) {
 	}
 
 	svr.InitHandler()
+
+	// 注册聊天消息的异步推送回调
+	chatbot.MustChatbot().RegsiterMessagePublish(svr.wc.PushTextMessage)
 
 	notify_handler.HandlerInst().RegisterPusher(svr.wc.PushFileMessage)
 	notify_handler.HandlerInst().RegisterUploader(svr.wc.UploadTemporaryMedia)

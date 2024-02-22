@@ -6,3 +6,5 @@ github.com/walkerdu/wecom-backend v0.0.0-20230531080957-704ac63a5b9b h1:pkzTJoe7
 github.com/walkerdu/wecom-backend v0.0.0-20230531080957-704ac63a5b9b/go.mod h1:Xuj9OMEzsQH9H4loamewk3y/gDTtzvkBB+kw93EvOgw=
 github.com/walkerdu/wecom-backend v0.0.0-20230603101717-59a469be11b7 h1:IM2uZknaS7g+TLxDjqXcrAWpIVQMvuNhpFZ/zu9MWVg=
 github.com/walkerdu/wecom-backend v0.0.0-20230603101717-59a469be11b7/go.mod h1:Xuj9OMEzsQH9H4loamewk3y/gDTtzvkBB+kw93EvOgw=
+github.com/walkerdu/wecom-backend v0.0.0-20240222075153-ab21bc23150e h1:u4Qb9egmfJgbJQpfTWz38MTbOG35oERQ+KPo0CsxZtE=
+github.com/walkerdu/wecom-backend v0.0.0-20240222075153-ab21bc23150e/go.mod h1:Xuj9OMEzsQH9H4loamewk3y/gDTtzvkBB+kw93EvOgw=

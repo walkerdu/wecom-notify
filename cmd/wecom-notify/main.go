@@ -9,6 +9,7 @@ import (
 	"os/signal"
 	"syscall"
 
+	"github.com/walkerdu/wecom-backend/pkg/chatbot"
 	"github.com/walkerdu/wecom-notify/configs"
 	"github.com/walkerdu/wecom-notify/internal/pkg/service"
 )
@@ -22,6 +23,7 @@ Options:
 	--agent_token <wecom agent token>
 	--agent_encoding_aes_key <wecom agent encoding aes key>
 	--addr <wecom listen addr>
+	--openai_apikey <openai api key>
 	-f, --config_file <json config file>
 `
 	Usage = func() {
@@ -48,6 +50,8 @@ func main() {
 	flag.StringVar(&config.WeCom.AgentConfig.AgentEncodingAESKey, "agent_encoding_aes_key", "", "wecom agent encoding aes key")
 	flag.StringVar(&config.WeCom.Addr, "addr", ":80", "wecom listen addr")
 
+	flag.StringVar(&config.OpenAI.ApiKey, "openai_apikey", "", "openai api key")
+
 	var configFile string
 	flag.StringVar(&configFile, "f", "", "json config file")
 	flag.StringVar(&configFile, "config_file", "", "json config file")
@@ -70,6 +74,8 @@ func main() {
 	}
 
 	log.Printf("[INFO] starup config:%v", config)
+
+	chatbot.NewChatbot(&chatbot.Config{OpenAI: config.OpenAI})
 
 	ws, err := service.NewWeComServer(&config.WeCom)
 	if err != nil {

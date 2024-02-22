@@ -1,6 +1,9 @@
 package handler
 
 import (
+	"log"
+
+	"github.com/walkerdu/wecom-backend/pkg/chatbot"
 	"github.com/walkerdu/wecom-backend/pkg/wecom"
 )
 
@@ -20,10 +23,16 @@ func (t *TextMessageHandler) GetHandlerType() wecom.MessageType {
 }
 
 func (t *TextMessageHandler) HandleMessage(msg wecom.MessageIF) (wecom.MessageIF, error) {
-	//textMsg := msg.(*wecom.TextMessageReq)
+	textMsg := msg.(*wecom.TextMessageReq)
+
+	chatRsp, err := chatbot.MustChatbot().GetResponse(textMsg.FromUserName, textMsg.Content)
+	if err != nil {
+		log.Printf("[ERROR][HandleMessage] chatbot.GetResponse failed, err=%s", err)
+		chatRsp = "chatbot something wrong, errMsg:" + err.Error()
+	}
 
 	textMsgRsp := wecom.TextMessageRsp{
-		Content: "臣妾来了，有何吩咐!",
+		Content: chatRsp,
 	}
 
 	return &textMsgRsp, nil
